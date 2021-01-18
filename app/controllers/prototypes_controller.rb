@@ -22,11 +22,13 @@ class PrototypesController < ApplicationController
 
   def show
     @comment = Comment.new
-    @comments = @prototype.comments.includes(:user)
+    @comments = @prototype.comments
   end
 
-  def edit
-    
+  def edit 
+    if current_user != @prototype.user
+      redirect_to root_path
+    end
   end
   
   def update
